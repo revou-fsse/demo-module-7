@@ -1,0 +1,27 @@
+[
+    {
+        "name": "Apple iPhone 13",
+        "price": 999.99,
+        "description": "The latest iPhone model with advanced camera and performance"
+    },
+    {
+        "name": "Samsung Galaxy S22",
+        "price": 899.99,
+        "description": "A powerful Android smartphone with large display and long battery life"
+    },
+    {
+        "name": "Sony PlayStation 5",
+        "price": 499.99,
+        "description": "A next-generation gaming console with fast performance and stunning graphics"
+    },
+    {
+        "name": "Microsoft Xbox Series X",
+        "price": 599.99,
+        "description": "A high-performance gaming console with advanced graphics and controller"
+    },
+    {
+        "name": "Nintendo Switch",
+        "price": 399.99,
+        "description": "A hybrid gaming console for playing games at home or on the go"
+    }
+]
