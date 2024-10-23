@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ninja</title>
+  </head>
+  <body>
+    <h1>Hello {{ nama }}</h1>
+
+    <form action="/search">
+      <input type="text" name="search_query" />
+      <input type="submit" value="Search" />
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Review</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in products %}
+        <tr>
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.description}}</td>
+          <td>{{product.review_content}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

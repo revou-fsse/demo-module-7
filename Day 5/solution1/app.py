@@ -10,7 +10,7 @@ app = Flask(__name__)
 Base.metadata.create_all(engine, checkfirst=True)
 
 @app.route('/')
-def home():
+def home():    
     return "<p>Hello, World!</p>"
     
 # get all products
