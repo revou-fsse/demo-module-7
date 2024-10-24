@@ -33,10 +33,14 @@ def user_register():
     with Session() as session:
         try:
             user = UserModel(name=name, email=email)
+
             user.set_password(password)
+
             session.add(user)
             session.commit()
+
             login_user(user)
+            
             return redirect(url_for('home', name=name))
         except Exception as e:
             print(e)

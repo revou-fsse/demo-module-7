@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, request
 from connectors.db import Base, engine
 from controllers.user_controller import userBp
 from flask_jwt_extended import JWTManager
