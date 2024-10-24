@@ -6,7 +6,7 @@ import os
 Base = declarative_base()
 
 print('connecting to db')
-engine = create_engine(f'mysql+mysqlconnector://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv("DB_PORT")}/fufufafa')
+engine = create_engine(f'mysql+mysqlconnector://{os.getenv('DB_USERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:{os.getenv("DB_PORT")}/{os.getenv('DB_NAME')}')
 
 connection = engine.connect()
 print('connected to db')

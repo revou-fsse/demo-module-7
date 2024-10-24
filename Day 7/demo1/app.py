@@ -5,8 +5,7 @@ from controllers.user_controller import userBp
 from flask_login import LoginManager, login_required
 import os
 
-
-Base.metadata.create_all(connection)
+Base.metadata.create_all(connection, checkfirst=True)
 
 app = Flask(__name__)
 
