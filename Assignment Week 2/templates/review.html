@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %}
+<main>
+  <h2>Hello {{ current_user.name }}!</h2>
+
+  <p>Here is a list of all reviews:</p>
+  <form action="{{ url_for('display.create_review') }}" method="GET">
+    <button type="submit">Create Review</button>
+  </form>
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Rating</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for review in reviews %}
+      <tr>
+        <td>{{ review.description }}</td>
+        <td>{{ review.rating }}</td>
+        <td style="display: flex; gap: 1em">
+          <form
+            action="{{ url_for('display.update_review', review_id=review.id) }}"
+            method="GET"
+          >
+            <input type="hidden" name="review_id" value="{{ review.id }}" />
+            <button type="submit">Update</button>
+          </form>
+          <form action="{{ url_for('review.delete_review') }}" method="POST">
+            <input type="hidden" name="review_id" value="{{ review.id }}" />
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <form action="{{ url_for('user.logout') }}" method="POST">
+    <button type="submit">Logout</button>
+  </form>
+</main>
+{% endblock content %}

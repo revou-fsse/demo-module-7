@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{{ title }}{% endblock title %}</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='styles/template.css') }}"
+    />
+    <style>
+      .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .nav-item {
+        margin-right: 1em;
+      }
+      .nav-item:last-child {
+        margin-right: 0;
+      }
+      .nav-link {
+        text-decoration: none;
+        color: #fff;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        font-weight: bold;
+      }
+
+      .error {
+        background-color: #f44336;
+        color: white;
+        padding: 1em;
+        margin-bottom: 1em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav-list">
+        {% if current_user.is_active %}
+        <span class="nav-item">
+          <a class="nav-link" href="{{ url_for('display.home') }}">Home</a>
+        </span>
+        {% if current_user.role == 'admin' %}
+        <span class="nav-item">
+          <a class="nav-link" href="{{ url_for('display.review') }}">Reviews</a>
+        </span>
+        {% endif %}
+        <span class="nav-item">
+          <form
+            id="logout-form"
+            action="{{ url_for('user.logout') }}"
+            method="POST"
+          >
+            <button type="submit">Logout</button>
+          </form>
+        </span>
+        {% else %}
+        <span class="nav-item">
+          <a class="nav-link" href="{{ url_for('display.index') }}">Home</a>
+        </span>
+        <span class="nav-item">
+          <a class="nav-link" href="{{ url_for('display.login') }}">Login</a>
+        </span>
+        <span class="nav-item">
+          <a class="nav-link" href="{{ url_for('display.register') }}"
+            >Register</a
+          >
+        </span>
+        {% endif %}
+      </nav>
+    </header>
+
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    <script>
+      const errorElement = document.querySelector(".error");
+      if (errorElement) {
+        setTimeout(() => {
+          errorElement.style.display = "none";
+          const url = new URL(location.href);
+          url.searchParams.delete("error");
+          history.pushState(null, "", url.toString());
+        }, 5000);
+      }
+    </script>
+
+    {% endif %} {% block content %}
+    <h1>Welcome to {{ title }}!</h1>
+    {% endblock content %}
+
+    <footer>
+      <p>
+        &copy; 2024 by <a href="https://github.com/cakasuma">Cakasuma Amam</a>
+      </p>
+    </footer>
+
+    <script>
+      const loginForm = document.getElementById("logout-form");
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const response = await fetch(loginForm.action, {
+          method: "POST",
+        });
+
+        const result = await response.json();
+        if (result.redirect) {
+          window.location.href = result.redirect;
+        }
+      });
+    </script>
+  </body>
+</html>
