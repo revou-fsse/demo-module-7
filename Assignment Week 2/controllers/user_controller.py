@@ -1,3 +1,4 @@
+import datetime
 from flask import Blueprint, redirect, request, url_for, jsonify
 from connectors.db import Session
 from models.user_model import User
@@ -26,7 +27,8 @@ def register():
             session.commit()
 
             login_user(user)
-            create_access_token(identity={'id': user.id, 'name': user.name, 'email': user.email, 'role': user.role})
+            expires = datetime.timedelta(days=1)
+            create_access_token(identity={'id': user.id, 'name': user.name, 'email': user.email, 'role': user.role}, expires_delta=expires)
 
             return jsonify({'redirect': url_for('display.home')}), 200
     except Exception as e:
@@ -48,7 +50,8 @@ def login():
 
             if isCorrectUser:
                 login_user(user)
-                create_access_token(identity={'id': user.id, 'name': user.name, 'email': user.email, 'role': user.role})
+                expires = datetime.timedelta(days=1)
+                create_access_token(identity={'id': user.id, 'name': user.name, 'email': user.email, 'role': user.role}, expires_delta=expires)
                 return jsonify({'redirect': url_for('display.home')}), 200
             else:
                 return redirect(url_for('display.login', error='Invalid email or password'))
